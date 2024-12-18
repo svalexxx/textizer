@@ -1,0 +1,32 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "8888:8888"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://root:password@mongodb:27017/test?authSource=admin
+      - SERVER_PORT=8888
+    depends_on:
+      - mongodb
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    environment:
+      - VUE_APP_BACKEND_URL=http://localhost:8888
+    ports:
+      - "8080:8080"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend

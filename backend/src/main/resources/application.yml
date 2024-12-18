@@ -1,0 +1,11 @@
+server:
+  port: ${SERVER_PORT:8081}
+spring:
+  data:
+    mongodb:
+      uri: mongodb://root:password@localhost:27017/test?authSource=admin
+logging:
+  level:
+    root: DEBUG
+    org.springframework.data.mongodb: DEBUG
+    org.springframework.web: DEBUG
