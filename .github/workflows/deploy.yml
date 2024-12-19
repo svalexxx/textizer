@@ -1,0 +1,49 @@
+name: Deploy to AWS Lightsail
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and Push Backend Image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/textizer-backend:latest ./backend
+          echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker push ghcr.io/${{ github.repository_owner }}/textizer-backend:latest
+
+      - name: Build and Push Frontend Image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/textizer-frontend:latest ./frontend
+          docker push ghcr.io/${{ github.repository_owner }}/textizer-frontend:latest
+
+      - name: Deploy to Lightsail
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.LIGHTSAIL_IP }}
+          username: admin
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "."
+          target: "/home/admin/textizer"
+
+      - name: SSH into Lightsail and Restart Services
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.LIGHTSAIL_IP }}
+          username: admin
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/admin/textizer
+            docker-compose down
+            docker-compose pull
+            docker-compose up -d --build
