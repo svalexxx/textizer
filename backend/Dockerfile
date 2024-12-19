@@ -5,7 +5,7 @@ FROM amazoncorretto:21-alpine3.19
 WORKDIR /app
 
 # Copy the build artifact
-COPY build/libs/*.jar app.jar
+COPY build/libs/backend-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the application port
 EXPOSE 8888

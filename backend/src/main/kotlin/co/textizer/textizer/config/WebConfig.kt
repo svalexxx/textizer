@@ -14,11 +14,10 @@ class WebConfig {
     return object : WebMvcConfigurer {
       override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**")
-          .allowedOrigins("http://localhost:8080") // Allow requests from the frontend origin
           .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allowed HTTP methods
           .allowedHeaders("*") // Allow all headers
           .allowCredentials(true) // Allow credentials (for Basic Auth)
-          .allowedOriginPatterns("http://localhost:8080") // Allow requests from the frontend origin
+          .allowedOriginPatterns("*")
       }
     }
   }
