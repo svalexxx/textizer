@@ -66,6 +66,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/admin/textizer
+            unset DOCKER_CONFIG
             docker-compose down
             docker-compose pull
             docker-compose up -d --build
