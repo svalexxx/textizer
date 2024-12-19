@@ -40,14 +40,14 @@ jobs:
 
       - name: Build and Push Backend Image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/backend:latest ./backend
+          docker build -t ghcr.io/${{ github.repository_owner }}/textizer-backend:latest ./backend
           echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          docker push ghcr.io/${{ github.repository_owner }}/backend:latest
+          docker push ghcr.io/${{ github.repository_owner }}/textizer-backend:latest
 
       - name: Build and Push Frontend Image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/frontend:latest ./frontend
-          docker push ghcr.io/${{ github.repository_owner }}/frontend:latest
+          docker build -t ghcr.io/${{ github.repository_owner }}/textizer-frontend:latest ./frontend
+          docker push ghcr.io/${{ github.repository_owner }}/textizer-frontend:latest
 
       - name: Deploy to Lightsail
         uses: appleboy/scp-action@v0.1.4
