@@ -18,9 +18,6 @@ ENV VUE_APP_BACKEND_URL=${VUE_APP_BACKEND_URL}
 # Build the Vue.js application
 RUN npm run build
 
-#Deploy the application
-RUN npm run deploy
-
 # Expose the port and serve the app
 EXPOSE 8080
 CMD ["npm", "run", "serve"]
