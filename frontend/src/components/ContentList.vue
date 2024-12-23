@@ -34,7 +34,7 @@ export default {
       this.errorMessage = ''
       try {
         const basicAuth = localStorage.getItem('authToken')
-        const backendUrl = process.env.VUE_APP_BACKEND_URL || 'https://ac06-46-199-94-53.ngrok-free.app'
+        const backendUrl = process.env.VUE_APP_BACKEND_URL || 'https://textizer.duckdns.org'
 
         const response = await axios.get(`${backendUrl}/api/content`, {
           params: { page: this.page, size: this.size },

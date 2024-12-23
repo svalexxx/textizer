@@ -34,7 +34,7 @@ export default {
         localStorage.setItem('authToken', basicAuth) // Store token for future requests
 
         // Optionally, test the login by fetching protected content
-        await axios.get(`${process.env.VUE_APP_BACKEND_URL || 'http://localhost:8888'}/api/content`, {
+        await axios.get(`${process.env.VUE_APP_BACKEND_URL || 'https://textizer.duckdns.org'}/api/content`, {
           headers: { Authorization: basicAuth }
         })
 
