@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <div class="login-form">
     <h2>Login</h2>
     <form @submit.prevent="login">
       <div>
@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style scoped>
-.login-container {
+.login-form {
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
