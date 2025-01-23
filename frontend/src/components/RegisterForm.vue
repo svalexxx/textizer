@@ -45,7 +45,7 @@ export default {
         params.append("email", this.form.email);
 
         const response = await axios.post(
-            `${process.env.VUE_APP_BACKEND_URL || "http://localhost:8888"}/api/users/create`,
+            `${process.env.VUE_APP_BACKEND_URL || "https://textizer.duckdns.org"}/api/users/create`,
             params,
             {
               headers: {

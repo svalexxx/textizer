@@ -33,7 +33,7 @@ jobs:
       - name: Build Backend with Gradle
         run: |
           cd backend
-          ./gradlew build
+          ./gradlew clean build
 
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
